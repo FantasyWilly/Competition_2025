@@ -39,9 +39,9 @@ class CameraFeedbackPublisher(Node):
         self.declare_parameter('zoom_duration', 0.3)
         self.declare_parameter('photo_continous_count', 3)
 
-        self.gimbal_step = self.get_parameter('gimbal_step').get_parameter_value().integer_value
-        self.zoom_duration = self.get_parameter('zoom_duration').get_parameter_value().double_value
-        self.photo_continous_count = self.get_parameter('photo_continous_count').get_parameter_value().integer_value
+        self.gimbal_step            = self.get_parameter('gimbal_step').get_parameter_value().integer_value
+        self.zoom_duration          = self.get_parameter('zoom_duration').get_parameter_value().double_value
+        self.photo_continous_count  = self.get_parameter('photo_continous_count').get_parameter_value().integer_value
 
         self.publisher_ = self.create_publisher(Camera, '/camera_data_pub', 10)
 
@@ -323,7 +323,7 @@ class BackgroundManager:
 # ----------------------- [main] 主要執行序 -----------------------
 def main():
 
-    # 建立 AppManager 實例，並啟動所有背景線程
+    # 建立 BackgroundManager 實例，並啟動所有背景線程
     try:
         background_manager = BackgroundManager()
         background_manager.start()

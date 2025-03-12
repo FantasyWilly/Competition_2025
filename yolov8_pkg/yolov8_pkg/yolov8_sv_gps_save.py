@@ -97,7 +97,6 @@ class YoloRtspRosNode(Node):
         self.declare_parameter('camera_source', 'rtsp://user:user@192.168.144.108:554/cam/realmonitor?channel=1&subtype=0')
         self.declare_parameter('rtsp_server_url', 'rtsp://192.168.0.230:8554/live/stream')
         self.declare_parameter('frame_rate', 30)
-        self.declare_parameter('target_gps_topic', '/mavros/global_position/global')
         self.declare_parameter('save_directory', '/home/fantasywilly/Yolov8-Video')
         self.declare_parameter('base_filename', 'Yolov8-Recording.mp4')
         
@@ -108,7 +107,6 @@ class YoloRtspRosNode(Node):
         self.camera_source = self.get_parameter('camera_source').get_parameter_value().string_value
         self.rtsp_server_url = self.get_parameter('rtsp_server_url').get_parameter_value().string_value
         self.frame_rate = self.get_parameter('frame_rate').get_parameter_value().integer_value
-        self.target_gps_topic = self.get_parameter('gps_topic').get_parameter_value().string_value
         self.save_directory = self.get_parameter('save_directory').get_parameter_value().string_value
         self.base_filename = self.get_parameter('base_filename').get_parameter_value().string_value
 
@@ -139,7 +137,7 @@ class YoloRtspRosNode(Node):
         # 建立 ROS2 Subscriber，訂閱 MAVROS 發佈的 GPS (NavSatFix) 資訊
         self.gps_sub = self.create_subscription(
             NavSatFix,
-            self.target_gps_topic,
+            '/target_position',
             self.gps_callback,
             qos_profile=qos
         )
